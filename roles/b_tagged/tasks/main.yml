@@ -1,0 +1,3 @@
+---
+- debug: msg="Role B tagged"
+  tags: b

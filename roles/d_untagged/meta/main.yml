@@ -1,0 +1,6 @@
+---
+
+dependencies:
+  - { role: a_untagged }
+  - { role: b_untagged }
+  - { role: c_untagged }

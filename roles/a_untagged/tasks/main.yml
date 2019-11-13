@@ -1,0 +1,2 @@
+---
+- debug: msg="Role A untagged"

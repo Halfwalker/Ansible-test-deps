@@ -1,0 +1,7 @@
+---
+
+dependencies:
+  - { role: d_tagged }
+  - { role: c_tagged }
+  - { role: b_tagged }
+  - { role: a_tagged }

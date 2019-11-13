@@ -1,0 +1,128 @@
+---
+
+# Just print general information on dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  vars:
+    info_msg: |
+      test.sh with no parameter - run all tasks according to dependencies
+      test.sh with --tags 'a'   - run only roles/tasks tagged as 'a' with dependencies
+      b -> a
+      c -> b
+      d -> a b c
+      z -> d c b a
+
+  tasks:
+    - debug:
+        msg: "{{ info_msg.split('\n') }}"
+      tags: always
+
+# roles with NO tags and tasks WITH tags, roles defined in reverse order from dependencies.
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== untagged roles z d c b a tagged tasks reverse ========"
+      tags: always
+
+  roles:
+    - role: z_tagged
+    - role: d_tagged
+    - role: c_tagged
+    - role: b_tagged
+    - role: a_tagged
+
+
+# roles with NO tags and tasks with NO tags, roles defined in reverse order from dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== untagged roles z d c b a untagged tasks reverse ======"
+      tags: always
+
+  roles:
+    - role: z_untagged
+    - role: d_untagged
+    - role: c_untagged
+    - role: b_untagged
+    - role: a_untagged
+
+
+# roles WITH tags and tasks WITH tags, roles defined in correct order from dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== tagged roles a b c d z tagged tasks =================="
+      tags: always
+
+  roles:
+    - { role: a_tagged, tags: a }
+    - { role: b_tagged, tags: b }
+    - { role: c_tagged, tags: c }
+    - { role: d_tagged, tags: d }
+    - { role: z_tagged, tags: z }
+
+
+# roles WITH tags and tasks WITH tags, roles defined in reverse order from dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== tagged roles z d c b a tagged tasks reverse =========="
+      tags: always
+
+  roles:
+    - { role: z_tagged, tags: z }
+    - { role: d_tagged, tags: d }
+    - { role: c_tagged, tags: c }
+    - { role: b_tagged, tags: b }
+    - { role: a_tagged, tags: a }
+
+
+# roles WITH tags and tasks with NO tags, roles defined in correct order from dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== tagged roles a b c d z untagged tasks ================"
+      tags: always
+
+  roles:
+    - { role: a_untagged, tags: a }
+    - { role: b_untagged, tags: b }
+    - { role: c_untagged, tags: c }
+    - { role: d_untagged, tags: d }
+    - { role: z_untagged, tags: z }
+
+
+# roles WITH tags and tasks with NO tags, roles defined in reverse order from dependencies
+- hosts: localhost
+  gather_facts: false
+  become: no
+
+  pre_tasks:
+    - debug:
+        msg: "=============== tagged roles z d c b a untagged tasks reverse ========"
+      tags: always
+
+  roles:
+    - { role: z_untagged, tags: z }
+    - { role: d_untagged, tags: d }
+    - { role: c_untagged, tags: c }
+    - { role: b_untagged, tags: b }
+    - { role: a_untagged, tags: a }
+

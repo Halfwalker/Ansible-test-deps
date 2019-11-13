@@ -1,0 +1,3 @@
+---
+- debug: msg="Role C tagged"
+  tags: c
