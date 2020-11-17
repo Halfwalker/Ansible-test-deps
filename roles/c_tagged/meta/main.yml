@@ -1,4 +1,4 @@
 ---
 
 dependencies:
-  - { role: b_tagged }
+  - { role: b_tagged, tags: b }

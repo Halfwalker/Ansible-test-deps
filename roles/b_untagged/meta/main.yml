@@ -1,4 +1,4 @@
 ---
 
 dependencies:
-  - { role: a_untagged }
+  - { role: a_untagged, tags: a }

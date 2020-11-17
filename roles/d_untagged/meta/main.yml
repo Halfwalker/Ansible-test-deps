@@ -1,6 +1,6 @@
 ---
 
 dependencies:
-  - { role: a_untagged }
-  - { role: b_untagged }
-  - { role: c_untagged }
+  - { role: a_untagged, tags: a }
+  - { role: b_untagged, tags: b }
+  - { role: c_untagged, tags: c }
